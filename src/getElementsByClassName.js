@@ -8,8 +8,23 @@ var getElementsByClassName = function(className){
   // your code here
   var result = [];
 
-  function lookup(node) {
-
+  function lookup(element) {
+	var node;
+  	if(!element){
+  		element = document.body;
+  		result.push(element);
+  	}
+  	for(var i=0; i < element.childNodes.length; i++) {
+  		node = element.childNodes[i];
+  		if(node.hasChildNodes()){
+  			lookup(node);
+  		}
+  		if(node.classList && node.classList.contains(className)){
+  			result.push(node)
+  		}
+  	}
+  }
+  	/*
     var children = node.children;
     var arr = node.className === undefined ? [] : node.className.split(' ');
     
@@ -21,7 +36,8 @@ var getElementsByClassName = function(className){
   		_.each(children, function(element){lookup(element);})
   	}
   }
-
-  lookup(document);
+  lookup(document)
+*/
+  lookup();
   return result;
 };
